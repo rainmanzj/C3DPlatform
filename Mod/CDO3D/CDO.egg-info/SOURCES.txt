@@ -1,0 +1,17 @@
+initGui.py
+setup.py
+CDO/__init__.py
+CDO.egg-info/PKG-INFO
+CDO.egg-info/SOURCES.txt
+CDO.egg-info/dependency_links.txt
+CDO.egg-info/requires.txt
+CDO.egg-info/top_level.txt
+CDO/Model/DocumentObject.py
+CDO/Model/__init__.py
+CDO/Model/Feature/Box.py
+CDO/Model/Feature/Feature.py
+CDO/Model/Feature/__Feature.py
+CDO/Model/Feature/__init__.py
+CDO/View/__init__.py
+CDO/View/Feature/BoxView.py
+CDO/View/Feature/__init__.py

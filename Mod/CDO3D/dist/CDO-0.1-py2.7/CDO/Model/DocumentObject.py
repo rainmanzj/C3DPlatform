@@ -1,5 +1,3 @@
-from CDO.Base import Vector
-
 class Property:
     def __init__(self, name, type, value = None):
         self.name = name
@@ -14,7 +12,5 @@ class PropertyContainer:
         prop = Property(name, type, value)
         self.Properties.append(prop)
 
-class DocumentObject(object):
-    def __init__(self):
-        self.position = Vector()
-        self.rotation = Vector()
+class DocumentObject:
+    pass
