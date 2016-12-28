@@ -1,6 +1,5 @@
-from C3DPlatform.Base import Vector
+from C3DPlatform.Base import Placement
 
 class DocumentObject(object):
     def __init__(self):
-        self.position = Vector()
-        self.rotation = Vector()
+        pass
