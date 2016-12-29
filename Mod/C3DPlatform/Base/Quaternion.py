@@ -3,6 +3,7 @@ import math
 import copy
 
 class Quaternion:
+    
     def __init__(self, x = 0.0, y = 0.0, z = 0.0, w = 1.0):
         self.x = x
         self.y = y
@@ -10,12 +11,16 @@ class Quaternion:
         self.w = w
         
     @staticmethod
-    def FromAxisAngle(axis, angle):
-        angleInRad = angle / 180.0 * 3.1415926
-        return Quaternion.FromAxisAngleInRadian(axis, angleInRad)
+    def identity():
+        return Quaternion(0.0, 0.0, 0.0, 1.0)
         
     @staticmethod
-    def FromAxisAngleInRadian(axis, angle):
+    def AxisAngle(axis, angle):
+        angleInRad = angle / 180.0 * 3.1415926
+        return Quaternion.AxisAngleInRadian(axis, angleInRad)
+        
+    @staticmethod
+    def AxisAngleInRadian(axis, angle):
         norm = copy.deepcopy(axis)
         norm.normalize()
         scale = math.sin(angle * 0.5)
@@ -29,7 +34,7 @@ class Quaternion:
         return quat
         
     @staticmethod
-    def FromTo(rotFrom, rotTo):
+    def FromToRotation(rotFrom, rotTo):
         u = rotFrom.Normalized
         v = rotTo.Normalized
         dot = u.dot(v)
@@ -45,7 +50,7 @@ class Quaternion:
                 return Quaternion(t.x, t.y, t.z, 0.0)
         else:
             angleInRad = math.acos(dot)
-            return Quaternion.FromAxisAngleInRadian(w, angleInRad)
+            return Quaternion.AxisAngleInRadian(w, angleInRad)
             
     def invert(self):
         self.x = -self.x
@@ -66,6 +71,16 @@ class Quaternion:
         dz = 2.0*(x*z-y*w)*vec.x + 2.0*(x*w+y*z)*vec.y + (w2-x2-y2+z2)*vec.z;
         
         return Vector(dx, dy, dz)
+        
+    def eulerAngles(self):
+        pass
+        
+    def __mul__(self, other):
+        return Quaternion(
+            self.w * other.x + self.x * other.w + self.y * other.z - self.z * other.y,
+            self.w * other.y - self.x * other.z + self.y * other.w + self.z * other.x,
+            self.w * other.z + self.x * other.y - self.y * other.x + self.z * other.w,
+            self.w * other.w - self.x * other.x - self.y * other.y - self.z * other.z)
         
     def __str__(self):
         return "Quaternion(%f, %f, %f, %f)" % (self.x, self.y, self.z, self.w)
