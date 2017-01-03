@@ -63,3 +63,4 @@ TestResults/CDO.BaiJuyi.TE.Tests_log.ldf
 /Mod/setup.py
 /Mod/CDO3D.egg-info
 /Mod/dist
+*.c

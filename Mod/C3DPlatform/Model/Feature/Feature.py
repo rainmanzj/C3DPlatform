@@ -50,6 +50,7 @@ class Feature(DocumentObject, PropertyContainer):
             return prop.value
         
     def __setattr__(self, name, value):
+        print '-----',name
         if name in ['placement', 'type', 'view', '_PropertiesMap']:
             self.__dict__[name] = value
             if name == 'placement' and self.view is not None:
