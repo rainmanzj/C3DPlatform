@@ -2,8 +2,14 @@ from C3DPlatform.Model.Feature import Feature, PropertyType
 from C3DPlatform.View.Feature import ArchCSteelView
 
 class ArchCSteel(Feature):
-    def __init__(self, L = 100.0):
+    def __init__(self, L = 100.0, view = None):
         super(ArchCSteel, self).__init__()
     
+        self.addProperty("FeatureType", PropertyType.String, "CDO", "ArchCSteel")
         self.addProperty("L", PropertyType.Length, "CDO", L)
-        self.view = ArchCSteelView(self.L)
+        
+        if view is None:
+            self.view = ArchCSteelView(self)
+            self.updatePropertiesToView()
+        else:
+            self.view = view

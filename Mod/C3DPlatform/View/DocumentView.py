@@ -1,4 +1,5 @@
 from View import View
+from Feature import *
 
 import FreeCAD
 import Arch
@@ -13,8 +14,33 @@ class DocumentView(View):
     def Name(self):
         return self.doc.Name
         
+    def getFeatureByGUID(self, guid):
+        featInFreeCAD = None
+        featType = None
+        
+        for obj in self.doc.Objects:
+            if hasattr(obj, "GUID"):
+                if obj.GUID == guid:
+                    featInFreeCAD = obj
+                    break
+        
+        if featInFreeCAD is None:
+            return None,None
+        else:
+            if hasattr(featInFreeCAD, "FeatureType"):
+                featType = featInFreeCAD.FeatureType
+                return eval("%s%s(feat = %s, create = False)" \
+                    % (featType, "View", "featInFreeCAD")), featType
+            else:
+                return None,None
+        
+        
     def recompute(self):
         self.doc.recompute()
+        
+    def viewFit(self):
+        #self.docGui.ActiveView.
+        pass
         
     def viewLeft(self):
         self.docGui.ActiveView.viewLeft()

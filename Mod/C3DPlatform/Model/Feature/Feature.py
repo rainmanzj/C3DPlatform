@@ -37,7 +37,7 @@ class Feature(DocumentObject, PropertyContainer):
         
         self.type = "Feature"
         self.view = None
-        self.placement = Placement()
+        self.Placement = Placement()
     
     def addProperty(self, name, type, group = "", value = None):
         PropertyContainer.addProperty(self, name, type, group, value)
@@ -50,10 +50,9 @@ class Feature(DocumentObject, PropertyContainer):
             return prop.value
         
     def __setattr__(self, name, value):
-        print '-----',name
-        if name in ['placement', 'type', 'view', '_PropertiesMap']:
+        if name in ['Placement', 'type', 'view', '_PropertiesMap']:
             self.__dict__[name] = value
-            if name == 'placement' and self.view is not None:
+            if name == 'Placement' and self.view is not None:
                 self.view.Placement = value
         elif self.hasProperty(name):
             prop = self.getProperty(name)
@@ -62,6 +61,11 @@ class Feature(DocumentObject, PropertyContainer):
                 self.view.setProperty(name, value)
         else:
             pass
+            
+    def updatePropertiesToView(self):
+        for propName in self._PropertiesMap:
+            prop = self._PropertiesMap[propName]
+            self.view.updateProperty(prop.name, prop.type, prop.group, prop.value)
         
     def show(self):
         self.view.show()

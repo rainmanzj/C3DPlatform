@@ -41,3 +41,11 @@ class FeatureView(View):
             
     def setProperty(self, name, value):
         setattr(self.feature, name, value)
+        
+    def updateProperty(self, name, type, group, value):
+        if hasattr(self.feature, name):
+            self.setProperty(name, value)
+        else:
+            self.addProperty(name, type, group, value)
+    
+    
