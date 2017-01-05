@@ -1,5 +1,5 @@
 from C3DPlatform.Model import DocumentObject
-from C3DPlatform.Base import Placement
+from C3DPlatform.Geometry import Placement
 
 class Property:
     def __init__(self, name, type, group = "", value = None):
@@ -37,7 +37,6 @@ class Feature(DocumentObject, PropertyContainer):
         
         self.type = "Feature"
         self.view = None
-        self.Placement = Placement()
     
     def addProperty(self, name, type, group = "", value = None):
         PropertyContainer.addProperty(self, name, type, group, value)
@@ -50,10 +49,12 @@ class Feature(DocumentObject, PropertyContainer):
             return prop.value
         
     def __setattr__(self, name, value):
-        if name in ['Placement', 'type', 'view', '_PropertiesMap']:
+        if name == 'Placement' and self.view is not None:
+            self.view.Placement = value
+        elif name in ['type', 'view', '_PropertiesMap']:
             self.__dict__[name] = value
-            if name == 'Placement' and self.view is not None:
-                self.view.Placement = value
+        elif name == "Label":
+            self.view.Label = value
         elif self.hasProperty(name):
             prop = self.getProperty(name)
             prop.value = value
@@ -78,3 +79,19 @@ class Feature(DocumentObject, PropertyContainer):
         
     def delete(self):
         self.view.delete()
+        
+    @property
+    def guid(self):
+        return self.view.guid
+            
+    @property
+    def Placement(self):
+        return self.view.Placement
+        
+    @property
+    def Name(self):
+        return self.view.Name
+        
+    @property
+    def Label(self):
+        return self.view.Label

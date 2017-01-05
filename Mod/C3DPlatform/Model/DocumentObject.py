@@ -1,4 +1,4 @@
-from C3DPlatform.Base import Placement
+from C3DPlatform.Geometry import Placement
 
 class DocumentObject(object):
     def __init__(self):

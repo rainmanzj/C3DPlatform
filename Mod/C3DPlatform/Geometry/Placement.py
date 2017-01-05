@@ -11,6 +11,15 @@ class Placement(object):
         dst += self.position
         return dst
         
+    def __mul__(self, rhs):
+        pl = Placement()
+        pl.position = self.position + self.rotation.multVec(rhs.position)
+        pl.rotation = self.rotation * rhs.rotation
+        return pl
+        
+    def multiply(self, rhs):
+        return self * rhs
+        
     def __str__(self):
         return "Placement [Position=(%f,%f,%f) Rotation=(%f,%f,%f,%f)]" % \
             (self.position.x, self.position.y, self.position.z, \

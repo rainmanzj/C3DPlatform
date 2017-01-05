@@ -15,4 +15,8 @@ class Application(object):
     
     @property
     def ActiveDocument(self):
-        return Document(self.view.activeDocument())
+        docView = self.view.activeDocument()
+        if docView is None:
+            return None
+        else:
+            return Document(docView)

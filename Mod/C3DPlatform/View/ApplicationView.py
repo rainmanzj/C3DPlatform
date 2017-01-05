@@ -11,5 +11,8 @@ class ApplicationView(View):
     def activeDocument(self):
         activeDoc = FreeCAD.ActiveDocument
         activeDocGui = FreeCADGui.ActiveDocument
-        docView = DocumentView(activeDoc, activeDocGui)
-        return docView
+        
+        if activeDoc is None:
+            return None
+        else:
+            return DocumentView(activeDoc, activeDocGui)

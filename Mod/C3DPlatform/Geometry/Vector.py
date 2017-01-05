@@ -28,6 +28,15 @@ class Vector(object):
             return Vector(self.x / length, self.y / length, self.z / length)
         else:
             return Vector()
+            
+    def dot(self, other):
+        return self.x * other.x + self.y * other.y + self.z * other.z
+        
+    def cross(self, other):
+        return Vector(
+            self.y * other.z - self.z * other.y,
+            self.z * other.x - self.x * other.z,
+            self.x * other.y - self.y * other.x)
         
     def __add__(self, other):
         return Vector(self.x + other.x, self.y + other.y, self.z + other.z)
@@ -46,14 +55,31 @@ class Vector(object):
     def __neg__(self):
         return Vector(-self.x, -self.y, -self.z)
         
-    def dot(self, other):
-        return self.x * other.x + self.y * other.y + self.z * other.z
-        
-    def cross(self, other):
-        return Vector(
-            self.y * other.z - self.z * other.y,
-            self.z * other.x - self.x * other.z,
-            self.x * other.y - self.y * other.x)
+    def __getitem__(self, i):
+        if isinstance(i, int):
+            if i == 0:
+                return self.x
+            elif i == 1:
+                return self.y
+            elif i == 2:
+                return self.z
+            else:
+                return None
+        else:
+            return None
+            
+    def __setitem__(self, i, val):
+        if isinstance(i, int):
+            if i == 0:
+                self.x = val
+            elif i == 1:
+                self.y = val
+            elif i == 2:
+                self.z = val
+            else:
+                pass
+        else:
+            pass
         
     def __str__(self):
         return "Vector(%f, %f, %f)" % (self.x, self.y, self.z)

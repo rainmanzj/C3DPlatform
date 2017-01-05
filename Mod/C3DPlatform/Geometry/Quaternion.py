@@ -52,6 +52,14 @@ class Quaternion:
             angleInRad = math.acos(dot)
             return Quaternion.AxisAngleInRadian(w, angleInRad)
             
+    @staticmethod
+    def Euler(x, y, z):
+        # Z-->X-->Y
+        rotX = Quaternion.AxisAngle(Vector(1, 0, 0), x)
+        rotY = Quaternion.AxisAngle(Vector(0, 1, 0), y)
+        rotZ = Quaternion.AxisAngle(Vector(0, 0, 1), z)
+        return rotY * rotX * rotZ
+            
     def invert(self):
         self.x = -self.x
         self.y = -self.y
@@ -61,6 +69,10 @@ class Quaternion:
         return Quaternion(-self.x, -self.y, -self.z, self.w)
         
     def multVec(self, vec):
+        x = self.x
+        y = self.y
+        z = self.z
+        w = self.w
         x2 = self.x * self.x
         y2 = self.y * self.y
         z2 = self.z * self.z
@@ -81,6 +93,9 @@ class Quaternion:
             self.w * other.y - self.x * other.z + self.y * other.w + self.z * other.x,
             self.w * other.z + self.x * other.y - self.y * other.x + self.z * other.w,
             self.w * other.w - self.x * other.x - self.y * other.y - self.z * other.z)
+            
+    def multiply(self, rhs):
+        return self * rhs
         
     def __str__(self):
         return "Quaternion(%f, %f, %f, %f)" % (self.x, self.y, self.z, self.w)

@@ -1,5 +1,5 @@
 from C3DPlatform.View import View
-from C3DPlatform.Base import Placement
+from C3DPlatform.Geometry import Placement,Vector,Quaternion
 
 import FreeCAD
 import FreeCADGui
@@ -9,10 +9,19 @@ class FeatureView(View):
         super(FeatureView, self).__init__()
         
         self.feature = None
-     
+    
     @property
     def Placement(self):
-        return self.feature.Placement
+        if self.feature is not None:
+            pl = Placement()
+            pl.position = Vector(self.feature.Placement.Base.x,
+                                 self.feature.Placement.Base.y,
+                                 self.feature.Placement.Base.z)
+            rot = self.feature.Placement.Rotation
+            pl.rotation = Quaternion(rot.Q[0], rot.Q[1], rot.Q[2], rot.Q[3])
+            return pl
+        else:
+            return None
         
     @Placement.setter
     def Placement(self, pl):
@@ -48,4 +57,24 @@ class FeatureView(View):
         else:
             self.addProperty(name, type, group, value)
     
-    
+    @property
+    def guid(self):
+        if self.feature is not None:
+            if hasattr(self.feature, "GUID"):
+                return self.feature.GUID
+            else:
+                return None
+        else:
+            return None
+            
+    @property
+    def Name(self):
+        return self.feature.Name
+        
+    @property
+    def Label(self):
+        return self.feature.Label
+        
+    @Label.setter
+    def Label(self, value):
+        self.feature.Label = value

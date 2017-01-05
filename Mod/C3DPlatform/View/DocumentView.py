@@ -33,13 +33,53 @@ class DocumentView(View):
                     % (featType, "View", "featInFreeCAD")), featType
             else:
                 return None,None
+                
+    def getFeatureByName(self, name):
+        item = None
+        featType = None
         
+        for obj in self.doc.Objects:
+            if obj.Name == name:
+                item = obj
+                featType = getattr(obj, "FeatureType", "")
+                break
+                
+        if item is None:
+            return None,None
+        else:
+            if featType == "":
+                f = FeatureView()
+                f.feature = item
+                return (f, featType)
+            else:
+                f = eval("%s%s(feat = %s, create = False)" \
+                    % (featType, "View", "item"))
+                return (f, featType)
+                
+    @property
+    def Features(self):
+        lst = []
+        for obj in self.doc.Objects:
+            featType = getattr(obj, "FeatureType", "")
+            if featType == "":
+                f = FeatureView()
+                f.feature = obj
+                lst.append((f, featType))
+            else:
+                f = eval("%s%s(feat = %s, create = False)" \
+                    % (featType, "View", "obj"))
+                lst.append((f, featType))
+        return lst
+    
+    def clear(self):
+        if self.doc is not None:
+            for o in self.doc.Objects:
+                self.doc.removeObject(o.Name)
         
     def recompute(self):
         self.doc.recompute()
         
     def viewFit(self):
-        #self.docGui.ActiveView.
         pass
         
     def viewLeft(self):
