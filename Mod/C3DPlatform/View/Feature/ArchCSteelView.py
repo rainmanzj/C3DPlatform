@@ -1,8 +1,7 @@
-from C3DPlatform.View.Feature import FeatureView
-
+import FeatureView
 import ArchCSteelViewImpl
 
-class ArchCSteelView(FeatureView):
+class ArchCSteelView(FeatureView.FeatureView):
     def __init__(self, feat, name="", create=True):
         super(ArchCSteelView, self).__init__()
         

@@ -11,41 +11,24 @@ class Document(object):
     
     def getFeatureByName(self, name):
         view, type = self.view.getFeatureByName(name)
-        if view is not None and type is not None:
-            if type == "":
-                f = Feature.Feature()
-                f.view = view
-                return f
-            else:
-                f = eval("Feature.%s(view = view)" % type)
-                return f
-        else:
-            return None
+        return Feature.Feature._from(view)
             
     def getFeatureByGUID(self, guid):
         return self.getFeatureByName(guid)
         '''
         view, type = self.view.getFeatureByGUID(guid)
-        if view is not None and type is not None:
-            return eval("Feature.%s(view = view)" % type)
-        else:
-            return None
+        return Feature.Feature._from(view)
         '''
             
     @property
     def Features(self):
         feats = []
         lst = self.view.Features
+        
         for item in lst:
-            view = item[0]
-            type = item[1]
-            if type == "":
-                f = Feature.Feature()
-                f.view = view
-                feats.append(f)
-            else:
-                f = eval("Feature.%s(view = view)" % type)
-                feats.append(f)
+            f = Feature.Feature._from(item[0])
+            feats.append(f)
+        
         return feats
             
     def clear(self):

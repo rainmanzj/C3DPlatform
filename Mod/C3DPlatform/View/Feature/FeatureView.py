@@ -9,6 +9,27 @@ class FeatureView(View):
         super(FeatureView, self).__init__()
         
         self.feature = None
+        
+    @staticmethod
+    def _from(feat):
+        f = None
+        featType = getattr(feat, "FeatureType", "")
+        
+        if featType == "":
+            f = FeatureView()
+            f.feature = feat
+        else:
+            viewType = "%sView" % featType
+            exec("from %s import %s" % (viewType, viewType))
+            expression = "%s(feat = %s, create = False)" \
+                % (viewType, "feat")
+            f = eval(expression)
+        
+        return f,featType
+        
+    @property
+    def FeatureType(self):
+        return getattr(self.feature, "FeatureType", "")
     
     @property
     def Placement(self):

@@ -16,8 +16,6 @@ class DocumentView(View):
         
     def getFeatureByGUID(self, guid):
         featInFreeCAD = None
-        featType = None
-        
         for obj in self.doc.Objects:
             if hasattr(obj, "GUID"):
                 if obj.GUID == guid:
@@ -27,48 +25,26 @@ class DocumentView(View):
         if featInFreeCAD is None:
             return None,None
         else:
-            if hasattr(featInFreeCAD, "FeatureType"):
-                featType = featInFreeCAD.FeatureType
-                return eval("%s%s(feat = %s, create = False)" \
-                    % (featType, "View", "featInFreeCAD")), featType
-            else:
-                return None,None
+            return FeatureView._from(featInFreeCAD)
                 
     def getFeatureByName(self, name):
-        item = None
-        featType = None
-        
+        feat = None
         for obj in self.doc.Objects:
             if obj.Name == name:
-                item = obj
-                featType = getattr(obj, "FeatureType", "")
+                feat = obj
                 break
-                
-        if item is None:
+        
+        if feat is None:
             return None,None
         else:
-            if featType == "":
-                f = FeatureView()
-                f.feature = item
-                return (f, featType)
-            else:
-                f = eval("%s%s(feat = %s, create = False)" \
-                    % (featType, "View", "item"))
-                return (f, featType)
+            return FeatureView._from(feat)
                 
     @property
     def Features(self):
         lst = []
         for obj in self.doc.Objects:
-            featType = getattr(obj, "FeatureType", "")
-            if featType == "":
-                f = FeatureView()
-                f.feature = obj
-                lst.append((f, featType))
-            else:
-                f = eval("%s%s(feat = %s, create = False)" \
-                    % (featType, "View", "obj"))
-                lst.append((f, featType))
+            f,featType = FeatureView._from(obj)
+            lst.append((f, featType))
         return lst
     
     def clear(self):

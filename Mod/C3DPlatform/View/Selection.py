@@ -9,6 +9,12 @@ class Selection(object):
         
     @staticmethod
     def getSelection():
+        ss = []
         sels = FreeCADGui.Selection.getSelection()
         for sel in sels:
-            pass
+            from C3DPlatform.View.Feature import FeatureView
+            view,type = FeatureView._from(sel)
+            from C3DPlatform.Model.Feature import Feature
+            f = Feature._from(view)
+            ss.append(f)
+        return ss

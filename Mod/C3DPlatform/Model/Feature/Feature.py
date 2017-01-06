@@ -37,6 +37,21 @@ class Feature(DocumentObject, PropertyContainer):
         
         self.type = "Feature"
         self.view = None
+        
+    @staticmethod
+    def _from(view):
+        type = view.FeatureType
+        if type is None:
+            return None
+            
+        f = None
+        if type == "":
+            f = Feature()
+            f.view = view
+        else:
+            exec("from %s import %s" % (type, type))
+            f = eval("%s(view = view)" % type)
+        return f
     
     def addProperty(self, name, type, group = "", value = None):
         PropertyContainer.addProperty(self, name, type, group, value)
