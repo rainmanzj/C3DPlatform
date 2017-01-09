@@ -9,17 +9,21 @@ class Document(object):
     def Name(self):
         return self.view.Name
     
+    '''
     def getFeatureByName(self, name):
         view, type = self.view.getFeatureByName(name)
         return Feature.Feature._from(view)
-            
+    '''
+     
     def getFeatureByGUID(self, guid):
-        return self.getFeatureByName(guid)
+        view, type = self.view.getFeatureByName(guid)
+        return Feature.Feature._from(view)
+        
         '''
         view, type = self.view.getFeatureByGUID(guid)
         return Feature.Feature._from(view)
         '''
-            
+    
     @property
     def Features(self):
         feats = []

@@ -104,8 +104,6 @@ class _CSteel(ArchComponent.Component):
         obj.addProperty("App::PropertyLength","T","Arch",translate("Arch","T"))
         obj.addProperty("App::PropertyLength","L","Arch",translate("Arch","L"))
         obj.addProperty("App::PropertyString", "GUID", "Arch", "GUID")
-        import random
-        obj.GUID = str(random.randint(1, 10000000))
 
     def execute(self,obj):
         "builds the triangle prism shape"

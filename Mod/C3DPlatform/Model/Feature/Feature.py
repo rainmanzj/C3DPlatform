@@ -62,6 +62,8 @@ class Feature(DocumentObject, PropertyContainer):
         if self.hasProperty(name):
             prop = self.getProperty(name)
             return prop.value
+        else:
+            print '999'
         
     def __setattr__(self, name, value):
         if name == 'Placement' and self.view is not None:
@@ -96,16 +98,21 @@ class Feature(DocumentObject, PropertyContainer):
         self.view.delete()
         
     @property
-    def guid(self):
+    def Guid(self):
+        '''
         return self.view.guid
+        '''
+        return self.view.Name
             
     @property
     def Placement(self):
         return self.view.Placement
-        
+    
+    '''
     @property
     def Name(self):
         return self.view.Name
+    '''
         
     @property
     def Label(self):

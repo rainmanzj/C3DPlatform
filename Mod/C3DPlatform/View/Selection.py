@@ -18,3 +18,7 @@ class Selection(object):
             f = Feature._from(view)
             ss.append(f)
         return ss
+        
+    @staticmethod
+    def addSelection(feat):
+        FreeCADGui.Selection.addSelection(feat.view.feature)

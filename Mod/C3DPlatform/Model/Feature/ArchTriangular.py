@@ -4,7 +4,7 @@ from C3DPlatform.Geometry import Placement
 
 class ArchTriangular(Feature):
     def __init__(self, L = 100.0, W = 100.0, H = 100.0, placement = Placement(),
-                 name="ArchTriangular", view = None):
+                 guid="ArchTriangular", view = None):
         super(ArchTriangular, self).__init__()
         
         self.addProperty("L", PropertyType.Length, "CDO", L)
@@ -12,7 +12,7 @@ class ArchTriangular(Feature):
         self.addProperty("H", PropertyType.Length, "CDO", H)
         
         if view is None:
-            self.view = ArchTriangularView(self, name)
+            self.view = ArchTriangularView(self, guid)
             self.updatePropertiesToView()
             self.Placement = placement
         else:

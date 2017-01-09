@@ -3,3 +3,4 @@ from Box import Box
 from ArchCSteel import ArchCSteel
 from BooleanFuse import BooleanFuse
 from ArchTriangular import ArchTriangular
+from Group import Group
