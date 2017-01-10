@@ -16,6 +16,10 @@ class GroupView(FeatureView.FeatureView):
     def removeChild(self, item):
         self.feature.removeObject(item.view.feature)
         
+    def clear(self):
+        for o in self.feature.Group:
+            self.feature.removeObject(o)
+        
     def hasChild(self, item):
         for o in self.feature.Group:
             if o.Name == item.Guid:

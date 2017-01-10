@@ -19,6 +19,9 @@ class Group(Feature):
     def removeChild(self, item):
         self.view.removeChild(item)
         
+    def clear(self):
+        self.view.clear()
+        
     def hasChild(self, item):
         return self.view.hasChild(item)
         

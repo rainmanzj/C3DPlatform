@@ -99,3 +99,12 @@ class FeatureView(View):
     @Label.setter
     def Label(self, value):
         self.feature.Label = value
+        
+    @property
+    def Group(self):
+        for o in self.feature.InList:
+            if str(o) == '<group object>':
+                import GroupView
+                return eval("GroupView.GroupView(o, create=False)")
+                
+        return None

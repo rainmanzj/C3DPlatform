@@ -62,8 +62,6 @@ class Feature(DocumentObject, PropertyContainer):
         if self.hasProperty(name):
             prop = self.getProperty(name)
             return prop.value
-        else:
-            print '999'
         
     def __setattr__(self, name, value):
         if name == 'Placement' and self.view is not None:
@@ -103,7 +101,7 @@ class Feature(DocumentObject, PropertyContainer):
         return self.view.guid
         '''
         return self.view.Name
-            
+        
     @property
     def Placement(self):
         return self.view.Placement
@@ -117,3 +115,12 @@ class Feature(DocumentObject, PropertyContainer):
     @property
     def Label(self):
         return self.view.Label
+        
+    @property
+    def Group(self):
+        gp = self.view.Group
+        if gp is not None:
+            import Group
+            return eval("Group.Group(view = gp)")
+        else:
+            return None
