@@ -43,10 +43,10 @@ def makeSteel(baseobj=None,side=20,length=None,width=None,height=None,align="Cen
         obj.Side = side
 
 
-    obj.H = 100
-    obj.B = 50
-    obj.C = 20
-    obj.T = 2
+    obj.H = 89
+    obj.B = 41
+    obj.C = 11
+    obj.T = 0.95
 
     obj.Align = align
     if obj.Base and FreeCAD.GuiUp:
@@ -283,10 +283,10 @@ def makeCSteelPosEuler(L,
 
     _CSteel(obj)
     _ViewProviderWall(obj.ViewObject)
-    obj.H = 100
-    obj.B = 50
-    obj.C = 20
-    obj.T = 2
+    obj.H = 89
+    obj.B = 41
+    obj.C = 11
+    obj.T = 0.95
     obj.L = L
 
     obj.Placement.Base = position
