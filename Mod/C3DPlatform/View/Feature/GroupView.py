@@ -9,6 +9,21 @@ class GroupView(FeatureView.FeatureView):
             self.feature = GroupViewImpl.makeGroup(name = name)
         else:
             self.feature = feat
+            
+    def show(self):
+        self.feature.ViewObject.show()
+        for o in self.feature.Group:
+            o.ViewObject.show()
+        
+    def hide(self):
+        self.feature.ViewObject.hide()
+        for o in self.feature.Group:
+            o.ViewObject.hide()
+            
+    def delete(self):
+        for o in self.feature.Group:
+            o.Document.removeObject(o.Name)
+        self.feature.Document.removeObject(self.feature.Name)
                 
     def addChild(self, item):
         self.feature.addObject(item.view.feature)
