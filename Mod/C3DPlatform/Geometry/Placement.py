@@ -9,7 +9,10 @@ class Placement(object):
     def multVec(self, src):
         dst = self.rotation.multVec(src)
         dst += self.position
-        return dst
+        
+        origin = self.rotation.multVec(Vector(0, 0, 0))
+        origin += self.position
+        return dst - origin
         
     def __mul__(self, rhs):
         pl = Placement()

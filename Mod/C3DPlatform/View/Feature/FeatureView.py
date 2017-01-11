@@ -101,6 +101,28 @@ class FeatureView(View):
         self.feature.Label = value
         
     @property
+    def Texture(self):
+        return None
+        
+    @Texture.setter
+    def Texture(self, value):
+        if self.feature.ViewObject is None:
+            return
+        
+        vo = self.feature.ViewObject
+        rootnode = vo.RootNode
+        if len(rootnode) < 2:
+            return
+        from pivy import coin
+        if isinstance(rootnode[1], coin.SoTexture2):
+            rootnode.removeChild(1)
+        
+        if value is not None and value != "":
+            tex =  coin.SoTexture2()
+            tex.filename = value
+            rootnode.insertChild(tex, 1)
+        
+    @property
     def Group(self):
         for o in self.feature.InList:
             if str(o) == '<group object>':

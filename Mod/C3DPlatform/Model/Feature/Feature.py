@@ -70,6 +70,8 @@ class Feature(DocumentObject, PropertyContainer):
             self.__dict__[name] = value
         elif name == "Label":
             self.view.Label = value
+        elif name == "Texture":
+            self.setTexture(value)
         elif self.hasProperty(name):
             prop = self.getProperty(name)
             prop.value = value
@@ -115,6 +117,16 @@ class Feature(DocumentObject, PropertyContainer):
     @property
     def Label(self):
         return self.view.Label
+        
+    @property
+    def Texture(self):
+        return None
+        
+    def setTexture(self, value):
+        self.view.Texture = value
+        
+    def clearTexture(self):
+        self.view.Texture = ""
         
     @property
     def Group(self):

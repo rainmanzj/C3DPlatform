@@ -82,7 +82,6 @@ class CSteelCut(ArchComponent.Component):
         self.hideSubobjects(obj,prop)
         ArchComponent.Component.onChanged(self,obj,prop)
 
-
 class _CSteel(ArchComponent.Component):
     "The Triangle Prism object"
     def __init__(self,obj):
