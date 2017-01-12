@@ -196,7 +196,7 @@ class _CSteel(ArchComponent.Component):
             zdir = FreeCAD.Base.Vector(0, 0, 1)
             xdir = FreeCAD.Base.Vector(1, 0, 0)
             ydir = FreeCAD.Base.Vector(0, 1, 0)
-            basePnt = FreeCAD.Base.Vector(0, B/2, 0)
+            basePnt = FreeCAD.Base.Vector(0, 0, 0)
 
             pntA0 = basePnt - xdir * H * 0.5
             pntB0 = pntA0 - ydir * B
