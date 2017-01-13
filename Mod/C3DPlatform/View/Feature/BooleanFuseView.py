@@ -1,12 +1,31 @@
 from C3DPlatform.View.Feature import FeatureView
-
-import FreeCAD
-import Part
+import BooleanFuseViewImpl
 
 class BooleanFuseView(FeatureView):
-    def __init__(self, name):
+    def __init__(self, feat, name="", create=True):
         super(BooleanFuseView, self).__init__()
         
-        self.addProperty("FeatureType", PropertyType.String, "CDO", "BooleanFuseView")
+        if create:
+            self.feature = BooleanFuseViewImpl.makeFuse(None)
+        else:
+            self.feature = feat
+            
+    @property
+    def Items(self):
+        items = []
+        for o in self.feature.Items:
+            import FeatureView
+            fv,type = FeatureView.FeatureView._from(o)
+            items.append(fv)
+        return items
         
-        self.feature = FreeCAD.ActiveDocument.addObject("Part::MultiFuse", name)
+    @Items.setter
+    def Items(self, value):
+        for o in self.feature.Items:
+            o.ViewObject.show()
+            
+        items = []
+        for o in value:
+            o.view.feature.ViewObject.hide()
+            items.append(o.view.feature)
+        self.feature.Items = items

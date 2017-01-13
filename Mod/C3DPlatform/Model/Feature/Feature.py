@@ -40,10 +40,12 @@ class Feature(DocumentObject, PropertyContainer):
         
     @staticmethod
     def _from(view):
-        type = view.FeatureType
+        try:
+            type = view.FeatureType
+        except:
+            return None
         if type is None:
             return None
-            
         f = None
         if type == "":
             f = Feature()
