@@ -6,7 +6,7 @@ class BooleanFuse(Feature):
     def __init__(self, placement = Placement(), guid="Fusion", view = None):
         super(BooleanFuse, self).__init__()
         
-        self.addProperty("FeatureType", PropertyType.String, "CDO", "BooleanFuseView")
+        self.addProperty("FeatureType", PropertyType.String, "CDO", "BooleanFuse")
         
         if view is None:
             self.view = BooleanFuseView(self, guid)
