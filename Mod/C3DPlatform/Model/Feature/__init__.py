@@ -4,5 +4,6 @@ from Sphere import Sphere
 from ArchCSteel import ArchCSteel
 from BooleanFuse import BooleanFuse
 from BooleanCut  import BooleanCut
+from BooleanCommon import BooleanCommon
 from ArchTriangular import ArchTriangular
 from Group import Group
